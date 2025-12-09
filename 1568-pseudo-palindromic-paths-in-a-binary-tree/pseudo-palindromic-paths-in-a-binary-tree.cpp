@@ -1,35 +1,38 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    int res = 0;
-    void dfs(TreeNode* node, vector<int>& freq) {
-        if (!node) return;
-        freq[node->val]++;
-        // If it's a leaf node
-        if (!node->left && !node->right) {
-            int odd = 0;
-            for (int i = 1; i <= 9; ++i) {
-                if (freq[i] % 2 != 0) odd++;
-            }
-            if (odd <= 1) res++;
+    int count = 0;
+
+    bool check(unordered_map<int, int>& mapp) {
+        int cnt = 0;
+        for (auto& i : mapp) {
+            if (i.second % 2 != 0) cnt++;
+            if (cnt > 1) return false;
         }
-        dfs(node->left, freq);
-        dfs(node->right, freq);
-        freq[node->val]--; // backtrack
+        return true;
     }
-    int pseudoPalindromicPaths (TreeNode* root) {
-        vector<int> freq(10, 0); // digit values 1-9
-        dfs(root, freq);
-        return res;
+
+    void helper(TreeNode* root, unordered_map<int, int>& mapp) {
+        if (!root){
+            return ;
+        } 
+        mapp[root->val]++;
+        if (!root->left && !root->right) {
+            if (check(mapp)){
+                count++;
+            } 
+        }
+
+        helper(root->left,mapp);
+        helper(root->right,mapp);
+
+        mapp[root->val]--; 
+        if (mapp[root->val] == 0){
+                mapp.erase(root->val);
+        } 
+    }
+    int pseudoPalindromicPaths(TreeNode* root) {
+        unordered_map<int, int> mapp;
+        helper(root, mapp);
+        return count;
     }
 };
