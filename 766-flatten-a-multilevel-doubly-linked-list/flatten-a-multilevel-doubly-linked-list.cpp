@@ -16,31 +16,24 @@ public:
             return head;
         }
         Node* temp=head;
-        // stack<Node*>st;
-       while(temp!=NULL){
-        if(temp->child!=NULL){
-            Node* vall=temp->child;
-            Node* temp2=temp->next;
-            temp->next=temp->child;
-            temp->child->prev=temp;
-            while(vall->next!=NULL){
-                vall=vall->next;
-            }
-            vall->next=temp2;
-            if(temp2){
+        while(temp){
+            if(temp->child!=NULL){
+                Node* vall=temp->child;
+                Node* temp2=temp->next;
+                temp->next=vall;
+                temp->next->prev=temp;
+                temp->child=NULL;
+                while(vall->next!=NULL){
+                    vall=vall->next;
+                }
+                if(temp2){
+                vall->next=temp2;
                 temp2->prev=vall;
-               
-            }
-             temp->child=NULL;
-           
+                }
             
+            }
+            temp=temp->next;
         }
-         temp=temp->next;
-       
-
-       }
-    
-       return head;
-
+        return head;
     }
 };
