@@ -12,27 +12,37 @@ public:
 class Solution {
 public:
     Node* flatten(Node* head) {
-        if(head==NULL ){
+        if(head==NULL){
             return head;
         }
+        stack<Node*>st;
+        Node* tempo=NULL;
+
         Node* temp=head;
         while(temp){
             if(temp->child!=NULL){
-                Node* vall=temp->child;
-                Node* temp2=temp->next;
-                temp->next=vall;
+                if(temp->next){
+                    st.push(temp->next);
+                }
+                // temp->next->prev=NULL;
+                temp->next=temp->child;
                 temp->next->prev=temp;
                 temp->child=NULL;
-                while(vall->next!=NULL){
-                    vall=vall->next;
-                }
-                if(temp2){
-                vall->next=temp2;
-                temp2->prev=vall;
-                }
-            
             }
+            tempo=temp;
             temp=temp->next;
+        }
+        temp=tempo;
+        while(!st.empty()){
+           tempo=st.top();
+           st.pop();
+           temp->next=tempo;
+           tempo->prev=temp;
+           temp=temp->next;
+           while(temp->next!=NULL){
+            temp=temp->next;
+           }
+
         }
         return head;
     }
