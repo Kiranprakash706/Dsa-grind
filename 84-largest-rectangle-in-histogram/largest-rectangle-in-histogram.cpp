@@ -16,7 +16,7 @@ void findnext(vector<int>& nextSmaller, vector<int>& heights) {
     for (int i = n - 1; i >= 0; --i) {
         while (!st.empty() && heights[st.top()] >= heights[i])
             st.pop();
-        nextSmaller[i] = st.empty() ? n : st.top();
+        nextSmaller[i] = st.empty() ? -1 : st.top();
         st.push(i);
     }
 }
@@ -37,7 +37,7 @@ void findnext(vector<int>& nextSmaller, vector<int>& heights) {
             int b=nextsmaller[i]-prevsmaller[i]-1;
             int ans=l*b;
             area=max(area, ans);
-                    }
+        }
 
                     return area;
     }
