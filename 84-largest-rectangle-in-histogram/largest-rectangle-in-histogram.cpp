@@ -3,7 +3,7 @@ public:
 void findprev(vector<int>& prevSmaller, vector<int>& heights) {
     stack<int> st;
     int n = heights.size();
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         while (!st.empty() && heights[st.top()] >= heights[i])
             st.pop();
         prevSmaller[i] = st.empty() ? -1 : st.top();
