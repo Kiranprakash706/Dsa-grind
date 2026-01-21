@@ -5,15 +5,20 @@ public:
         int count = 0;
 
         for (int i = 0; i < arr.size(); i++) {
-            int temp = ((arr[i] % k) + k) % k;   // safe modulo
+            int temp =((arr[i] % k)+k)%k;
 
             if (temp == 0) {
-                if (mapp[0] > 0) {
+                if(mapp.find(0)!=mapp.end()){
                     count++;
-                    mapp[0]--;
-                    if (mapp[0] == 0) mapp.erase(0);
-                } else {
-                    mapp[0]++;   // ⭐ missing line
+                    if(mapp[0]>1){
+                        mapp[0]--;
+                    }
+                    else{
+                        mapp.erase(0);
+                    }
+                }
+                else{
+                    mapp[0]++;
                 }
             }
             else if (mapp.find(k - temp) != mapp.end()) {
