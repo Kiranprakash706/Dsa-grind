@@ -8,15 +8,16 @@ public:
         for(int r=0;r<fruits.size();r++){
            mapp[fruits[r]]++;
            
-            while(mapp.size()>2){
+            if(mapp.size()>2){
                 mapp[fruits[l]]--;
                 if(mapp[fruits[l]]==0){
                     mapp.erase(fruits[l]);
                 }
                 l++;
             }
+            if(mapp.size()<=2){
             maxlen=max(maxlen,r-l+1);
-           
+            }
             }
         
         return maxlen;
