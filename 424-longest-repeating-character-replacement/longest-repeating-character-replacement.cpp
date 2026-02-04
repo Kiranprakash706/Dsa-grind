@@ -10,7 +10,7 @@ public:
       while(r<s.length()){
             mapp[s[r]]++;
             maxfreq=max(maxfreq,mapp[s[r]]);
-            while((r-l+1)-maxfreq>k){
+            if((r-l+1)-maxfreq>k){
                 mapp[s[l]]--;
                 if(mapp[s[l]]==0){
                     mapp.erase(s[l]);
