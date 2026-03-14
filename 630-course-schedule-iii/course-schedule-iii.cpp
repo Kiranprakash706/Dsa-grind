@@ -10,19 +10,19 @@ public:
         priority_queue<int> pq; 
         int duration = 0;
 
-        for (int i = 0; i < arr.size(); i++) {
-            int d = arr[i][0];
-            int end = arr[i][1];
-
-            if (duration + d <= end) {
-                duration += d;
+        for(int i=0;i<arr.size();i++){
+            int d=arr[i][0];
+            int day=arr[i][1];
+            if(duration+d<=day){
                 pq.push(d);
+                duration+=d;
             }
-            else if (!pq.empty() && pq.top() > d) {
-                duration -= pq.top(); 
+            else if(!pq.empty() && pq.top()>d){
+                duration-=pq.top();
                 pq.pop();
-                duration += d;         
+                duration+=d;
                 pq.push(d);
+                
             }
         }
 
