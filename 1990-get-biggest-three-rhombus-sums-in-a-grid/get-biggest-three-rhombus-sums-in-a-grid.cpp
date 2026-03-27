@@ -1,57 +1,49 @@
 class Solution {
 public:
     vector<int> getBiggestThree(vector<vector<int>>& grid) {
-        int m = grid.size(), n = grid[0].size();
-        set<int> st;
-
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-
-                // k = 0 (single cell)
+        int n=grid.size();
+        int m=grid[0].size();
+        set<int>st;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 st.insert(grid[i][j]);
 
-                // try all sizes
-                for(int k = 1; ; k++) {
-                    if(i - k < 0 || i + k >= m || j - k < 0 || j + k >= n)
+                for(int size=1;;size++){
+                    int x=i-size;
+                    int y=j;
+
+                   if(i - size < 0 || i + size >= n || j - size < 0 || j + size >= m) {
                         break;
-
-                    int sum = 0;
-
-                    // 1. top → right (down-right)
-                    int x = i - k, y = j;
-                    for(int t = 0; t < k; t++) {
-                        sum += grid[x][y];
-                        x++; y++;
+                     }
+                    int sum=0;
+                    for(int t=0;t<size;t++){
+                        sum+=grid[x][y];
+                        x++;
+                        y++;
                     }
-
-                    // 2. right → bottom (down-left)
-                    for(int t = 0; t < k; t++) {
-                        sum += grid[x][y];
-                        x++; y--;
+                    for(int t=0;t<size;t++){
+                        sum+=grid[x][y];
+                        x++;
+                        y--;
                     }
-
-                    // 3. bottom → left (up-left)
-                    for(int t = 0; t < k; t++) {
-                        sum += grid[x][y];
-                        x--; y--;
+                    for(int t=0;t<size;t++){
+                        sum+=grid[x][y];
+                        x--;
+                        y--;
                     }
-
-                    // 4. left → top (up-right)
-                    for(int t = 0; t < k; t++) {
-                        sum += grid[x][y];
-                        x--; y++;
+                    for(int t=0;t<size;t++){
+                        sum+=grid[x][y];
+                        x--;
+                        y++;
                     }
-
                     st.insert(sum);
                 }
             }
         }
-
-        vector<int> res;
-        for(auto it = st.rbegin(); it != st.rend() && res.size() < 3; ++it) {
-            res.push_back(*it);
+        vector<int>result;
+        for(auto it=st.rbegin();it!=st.rend() && result.size()<3;it++){
+            result.push_back(*it);
         }
-
-        return res;
+        return result;
     }
 };
