@@ -18,26 +18,27 @@ class compare{
 };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.size()==0){
-            return nullptr;
+            return NULL;
         }
         priority_queue<ListNode*, vector<ListNode*> , compare>pq;
         for(auto &i:lists){
             if(i){
-                pq.push(i);
+            pq.push(i);
             }
         }
         ListNode* temp=new ListNode(-1);
-        ListNode* head=temp;
+        ListNode* ans=temp;
         while(!pq.empty()){
             ListNode* temp2=pq.top();
             pq.pop();
             temp->next=temp2;
             if(temp2->next){
                 pq.push(temp2->next);
+
             }
             temp=temp->next;
-          }
+        }
+        return ans->next;
 
-          return head->next;
     }
 };
