@@ -9,12 +9,12 @@ public:
                 return mid;
             }
             else if(nums[mid]>=nums[lb]){
-               if(target>=nums[lb] && target<=nums[mid]){
-                hb=mid-1;
-               }
-               else{
-                lb=mid+1;
-               }
+                if(target>=nums[lb] && target<=nums[mid]){
+                    hb=mid-1;
+                }
+                else{
+                    lb=mid+1;
+                }
             }
             else{
                 if(target>=nums[mid] && target<=nums[hb]){
