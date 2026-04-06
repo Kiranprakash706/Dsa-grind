@@ -10,7 +10,7 @@ __int128  gcd(__int128 a, __int128 b){
     }
 }
 __int128  LCM(__int128  a, __int128  b){
-    return a / gcd(a, b) * b;
+    return a * b / gcd(a, b);
 }
  
     int maxLength(vector<int>& nums) {
