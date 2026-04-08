@@ -10,7 +10,7 @@ public:
                     bricks-=diff;
                 }
                 else{
-                    if(!pq.empty() && pq.top()>=diff && ladder){
+                    if(!pq.empty() &&pq.top()>=diff  && ladder){
                         bricks+=pq.top();
                         pq.pop();
                         pq.push(diff);
