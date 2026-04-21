@@ -65,31 +65,36 @@ int helper(int ind, vector<int>&coins , int sum, vector<vector<long long >>&dp){
 
 // corrected code by akshit sharma 
 
-
 class Solution {
 public:
-
     int change(int sum, vector<int>& coins) {
-        int n=coins.size();
-      vector<vector<long long >>dp(n, vector<long long >(sum+1, 0));
-      
-        for(int i=0;i<n;i++){
-            dp[i][0]=1;
+        int n = coins.size();
+
+        vector<vector<unsigned long long>> dp(n, vector<unsigned long long>(sum + 1, 0));
+
+        for(int i = 0; i < n; i++){
+            dp[i][0] = 1;
         }
-        for(int i=0;i<n;i++){
-            for(int j=1;j<=sum;j++){
-                long long  pick=0;
-                if(j>=coins[i]){
-                    pick=dp[i][j-coins[i]];
-                }
-                long long  notpick=0;
-                if(i!=0)notpick=dp[i-1][j];
-                long long cur=LLONG_MAX;
-                cur-=pick;
-                if(cur-notpick>=0)dp[i][j]=(pick+notpick);
+
+        for(int i = 0; i <= sum; i++){
+            if(i % coins[0] == 0){
+                dp[0][i] = 1;
             }
         }
-        return dp[n-1][sum];
-        
+
+        for(int i = 1; i < n; i++){
+            for(int j = 1; j <= sum; j++){
+                unsigned long long pick = 0;
+                if(j >= coins[i]){
+                    pick = dp[i][j - coins[i]];
+                }
+
+                unsigned long long notpick = dp[i - 1][j];
+
+                dp[i][j] = pick + notpick;  // ✅ safe now
+            }
+        }
+
+        return dp[n - 1][sum];
     }
 };
