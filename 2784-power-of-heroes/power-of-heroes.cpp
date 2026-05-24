@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
 public:
     int sumOfPower(vector<int>& nums) {
         int MOD=1000000007;
@@ -12,5 +12,26 @@ public:
 
         }
         return ans%MOD;
+    }
+};*/
+
+class Solution {
+public:
+    int sumOfPower(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        long long tobe=0,cur=0;
+        long long sum=0, mod=1e9+7;
+        for(auto i: nums){
+            long long val = 1LL*i*i%mod;
+            cur=tobe;
+            tobe*=2;
+            tobe%=mod;
+            tobe+=i;
+            cur%=mod;
+            sum+=(val*cur%mod + val*i%mod)%mod;
+            sum%=mod;
+        }
+        return sum;
+
     }
 };
