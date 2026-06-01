@@ -1,29 +1,29 @@
 class Solution {
 public:
     vector<int> advantageCount(vector<int>& nums1, vector<int>& nums2) {
-        sort(nums1.begin(), nums1.end());
-        vector<pair<int, int>>v;
+        vector<int>ans(nums1.size(),0);
+        sort(nums1.begin(),nums1.end());
+        vector<vector<int>>v;
         for(int i=0;i<nums2.size();i++){
-            v.push_back({nums2[i], i});
+            v.push_back({nums2[i],i});
         }
         sort(v.begin(), v.end());
         int i=nums1.size()-1;
-        int j=v.size()-1;
-        vector<int > res(nums1.size(),-1);
-        int lef=0;
-        while(i>=0 && j>=0){
-           if(nums1[i]>v[j].first){
-                res[v[j].second]=nums1[i];
+        int j=i;
+        int k=0;
+        while(k<=i && j<v.size()){
+            if(nums1[i]>v[j][0]){
+                ans[v[j][1]]=nums1[i];
                 i--;
                 j--;
-           }
-           else {
-            res[v[j].second]=nums1[lef];
-            lef++;
-            j--;
-           }
-            
+            }
+            else {
+                ans[v[j][1]]=nums1[k];
+                k++;
+                j--;
+            }
         }
-        return res;
+        
+        return ans;
     }
 };
