@@ -1,8 +1,49 @@
 class Solution {
+    void merge(vector<int>& arr, int low, int mid, int high) {
+    vector<int> temp;
+
+    int left = low;
+    int right = mid + 1;
+
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temp.push_back(arr[left]);
+            left++;
+        } else {
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
+
+    while (left <= mid) {
+        temp.push_back(arr[left]);
+        left++;
+    }
+
+    while (right <= high) {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    for (int i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
+    }
+}
+
+void mergeSort(vector<int>& arr, int low, int high) {
+    if (low >= high) return;
+
+    int mid = low + (high - low) / 2;
+
+    mergeSort(arr, low, mid);
+    mergeSort(arr, mid + 1, high);
+
+    merge(arr, low, mid, high);
+}
 public:
     int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
-        sort(players.begin(), players.end());
-        sort(trainers.begin(), trainers.end());
+       mergeSort(players, 0,players.size()-1);
+       mergeSort(trainers,0, trainers.size()-1);
         int i=0;
         int j=0;
         int cnt=0;
